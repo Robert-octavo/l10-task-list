@@ -17,4 +17,5 @@
             <p>No tasks found</p>
         @endif
     </div>
+    {{ $tasks->links() }}
 @endsection
