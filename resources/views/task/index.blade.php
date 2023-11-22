@@ -6,6 +6,7 @@
 
 
 @section('content')
+    <p><a href="{{ route('tasks.create') }}">Create a new task</a></p>
     <div>
         @if (count($tasks) > 0)
             <ul>
