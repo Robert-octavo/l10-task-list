@@ -1,22 +1,30 @@
 @extends('layouts.app')
 
-@section('title')
-    <h1>Tasks</h1>
-@endsection
-
+@section('title', 'Tasks')
 
 @section('content')
-    <p><a href="{{ route('tasks.create') }}">Create a new task</a></p>
+    {{-- Create a task --}}
+    <nav class="mb-4">
+        <a href="{{ route('tasks.create') }}" class="font-medium text-gray-700 underline decoration-blue-500">Create a new
+            task</a>
+    </nav>
     <div>
         @if (count($tasks) > 0)
-            <ul>
+            <ul class="list-disc">
                 @foreach ($tasks as $task)
-                    <li><a href="{{ route('tasks.show', $task) }}">{{ $task->title }}</a></li>
+                    <li @class(['text-black', 'text-blue-500' => $task->completed])>
+                        <a href="{{ route('tasks.show', $task) }}" @class([
+                            'text-m text-black',
+                            'line-through font-bold text-blue-500' => $task->completed,
+                        ])>{{ $task->title }}</a>
+                    </li>
                 @endforeach
             </ul>
         @else
             <p>No tasks found</p>
         @endif
     </div>
-    {{ $tasks->links() }}
+    <nav class="mt-4">
+        {{ $tasks->links() }}
+    </nav>
 @endsection
