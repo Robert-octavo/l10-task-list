@@ -56,4 +56,10 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('tasks.index')->with('status', 'Task deleted successfully!');
     }
+
+    public function toggleCompleted(Task $task)
+    {
+        $task->toggleCompleted();
+        return redirect()->back()->with('status', 'Task updated successfully!');
+    }
 }
