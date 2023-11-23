@@ -14,10 +14,10 @@ class TaskController extends Controller
         return view('task.index', compact('tasks'));
     }
 
-    public function show($id)
+    public function show(Task $task)
     {
-        $task = Task::findOrFail($id);
-        return view('task.show', ['task' => $task]);
+        //$task = Task::findOrFail($id);
+        return view('task.show', compact('task'));
     }
 
     public function create()
@@ -33,19 +33,27 @@ class TaskController extends Controller
         return redirect()->route('tasks.show', $task->id)->with('status', 'Task created successfully!');
     }
 
-    public function edit($id)
+    public function edit(Task $task)
     {
-        $task = Task::findOrFail($id);
+        //$task = Task::findOrFail($id);
         return view('task.edit', compact('task'));
     }
 
-    public function update(StoreTask $request, $id)
+    public function update(StoreTask $request, Task $task)
     {
-        $task = Task::findOrFail($id);
-        $task->fill($request->all());
-        $task->save();
+        // $task = Task::findOrFail($id);
+        // $task->fill($request->all());
+        // $task->save();
         //$task = Task::findOrFail($id)->update($request->all());
         //dd($task);
-        return redirect()->route('tasks.show', $task->id)->with('status', 'Task updated successfully!');
+        $task->update($request->all());
+        return redirect()->route('tasks.show', $task)->with('status', 'Task updated successfully!');
+    }
+
+    public function destroy(Task $task)
+    {
+        //$task = Task::findOrFail($id);
+        $task->delete();
+        return redirect()->route('tasks.index')->with('status', 'Task deleted successfully!');
     }
 }
